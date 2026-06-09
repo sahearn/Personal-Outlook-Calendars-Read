@@ -17,3 +17,7 @@ I'll detail these steps because they eluded me for a long time, and are actually
 1. Go to [portal.azure.com](https://portal.azure.com), All services, App registration, New registration
 2. Name it, and select Personal Microsoft accounts only
 3. Set the redirect URI (localhost is fine for these purposes), and register. Save your client Id.
+4. In your app, left nav to Manage-API Permissions, Microsoft Graph, Delegated, and add `Calendars.Read`
+5. Left nav to Manage-Authentication, Settings, and select Allow public client flows (Without this, I was getting an error: `The client application must be marked as 'mobile.'`)
+
+Next, Graph requires standard OAuth implementation, but there are some initial one-time steps. Rather than build a login page I used a device code flow - this was also ideal for later script (re-)use.
