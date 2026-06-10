@@ -57,7 +57,7 @@ My first approach was to iterate the sorted events. But that resulted in a lot o
 - loop the sorted events and match event day to iterated date
 - if event is timed, save; if single day event (start=day, end=day+1), save
   - if multi-day event, check if iterated date occurs between event timespan, save
-- drop all matched events to a new array, and encode to JSON
+- put all matched events to a new array, and encode to JSON
 
 ## To-Dos
 - batch response has status per calendar (`$response['status']`) which is worth checking prior to processing
