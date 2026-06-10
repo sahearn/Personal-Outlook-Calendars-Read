@@ -64,3 +64,6 @@ My first approach was to iterate the sorted events. But that resulted in a lot o
 
 ## Result Usage
 I use this in two places: my [family event planner](https://github.com/sahearn/Printable-Weekly-Agenda), and my personal (private) daily-use wiki. Since the planner needs events both before and after "today", my API window is somewhat large. That means for my wiki, I need to trim out any events before "today" and beyond a set threshold (currently 5 days). This code is in `wiki-snippet.php`.
+
+![Usage in Wiki](screenshots/wiki-use.jpg "Usage in Wiki")
+
