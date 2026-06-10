@@ -40,7 +40,7 @@ The Graph CalendarView API is clean, and way better than trying to make sense of
 - single event, with a specific time (e.g. Team Meeting on 2026-06-03 at 13:00:00 UTC)
   - `start/dateTime` and `end/dateTime` have actual values in UTC
 - single event, all day (e.g. Moving Day on 2026-05-23)
-  - `isAllday` = true, `start/dateTime` = actual date and 00:00:00 UTC, 'end/dateTime` = **start+1** and 00:00:00 UTC
+  - `isAllday` = true, `start/dateTime` = actual date and 00:00:00 UTC, `end/dateTime` = **start+1** and 00:00:00 UTC
 - repeating event, with a specific time (e.g. Weekly Meeting on Fridays at 14:00:00 UTC)
   - `type` = occurence, but otherwise identical to a single timed event
   - `start/dateTime` and `end/dateTime` have actual values in UTC
