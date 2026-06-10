@@ -22,8 +22,8 @@ I'll detail these steps because they eluded me for a long time, and are actually
 
 ### OAuth
 Next, Graph requires standard OAuth implementation, but there are some initial one-time steps. Rather than build a login page I used a device code flow - this was also ideal for later script (re-)use. See `token_init.php`. Edit as appropriate, then run:
-1. `php token_init.php auth`, which displays an authorization URL, plus a unique code. This will authorize access to the new app.
-2. `php token_init.php fetch`, which makes an OAuth call for an access_token and makes an initial `calendarView` API call.
+1. `token_init.php auth`, which displays an authorization URL, plus a unique code. This will authorize access to the new app.
+2. `token_init.php fetch`, which makes an OAuth call for an access_token and makes an initial `calendarView` API call.
 
 After this, only a refresh token is necessary for any subsequent calls. Take note of file paths, since the token is stored in the filesystem. Adjust this as desired.
 
