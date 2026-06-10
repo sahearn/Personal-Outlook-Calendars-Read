@@ -20,4 +20,32 @@ I'll detail these steps because they eluded me for a long time, and are actually
 4. In your app, left nav to Manage-API Permissions, Microsoft Graph, Delegated, and add `Calendars.Read`
 5. Left nav to Manage-Authentication, Settings, and select Allow public client flows (Without this, I was getting an error: `The client application must be marked as 'mobile.'`)
 
-Next, Graph requires standard OAuth implementation, but there are some initial one-time steps. Rather than build a login page I used a device code flow - this was also ideal for later script (re-)use.
+### OAuth
+Next, Graph requires standard OAuth implementation, but there are some initial one-time steps. Rather than build a login page I used a device code flow - this was also ideal for later script (re-)use. See `token_init.php`. Edit as appropriate, then run:
+1. `php token_init.php auth`, which displays an authorization URL, plus a unique code. This will authorize access to the new app.
+2. `php token_init.php fetch`, which makes an OAuth call for an access_token and makes an initial `calendarView` API call.
+
+After this, only a refresh token is necessary for any subsequent calls. Take note of file paths, since the token is stored in the filesystem. Adjust this as desired.
+
+## Usage
+The main work is in `calendarView-batch_token-refresh.php`. See inline comments for details, but some high-level points to note:
+- I have multiple Outlook calendars, so rather than make separate curl calls for each, Graph supports a single `$batch` operation
+- When defining query parameters, note the syntax difference between regular parameters like `startDateTime` and `endDateTime` versus [OData Query Parameters](https://learn.microsoft.com/en-us/graph/query-parameters?tabs=http) like `$select` and `$top` (with the dollar sign).
+- I pull all the calendars, combine them, sort the events, and output to a single JSON file. I can then use this JSON file in different ways depending on what I'm doing across other personal applications (wiki, family event planner, etc.)
+
+### Some Notes on Overall Logic
+The Graph CalendarView API is clean, and way better than trying to make sense of an ICS file - with one exception. Here are the scenarios I accounted for:
+- single event, with a specific time (e.g. Team Meeting on 2026-06-03 at 13:00:00 UTC)
+  - `start/dateTime` and `end/dateTime` have actual values in UTC
+- single event, all day (e.g. Moving Day on 2026-05-23)
+  - `isAllday` = true, `start/dateTime` = actual date and 00:00:00 UTC
+- repeating event, with a specific time (e.g. Weekly Meeting on Fridays at 14:00:00 UTC)
+  - `type` = occurence, but otherwise identical to a single timed event
+  - `start/dateTime` and `end/dateTime` have actual values in UTC
+- repeating event, all day (e.g. Reminder to Pay Bill on the 1st of every month)
+  - `type` = occurence, but otherwise identical to a single all day event
+  - `isAllday` = true, `start/dateTime` = actual date and 00:00:00 UTC
+- multi-day event, all day (e.g. Vacation from 2026-05-10 to 2026-05-17)
+  - `type` = singleInstance, `isAllDay` = true, `start/dateTime` = actual dates and 00:00:00 UTC
+ 
+That last scenario added some extra work.
