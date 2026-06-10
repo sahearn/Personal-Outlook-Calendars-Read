@@ -28,7 +28,7 @@ Next, Graph requires standard OAuth implementation, but there are some initial o
 After this, only a refresh token is necessary for any subsequent calls. Take note of file paths, since the token is stored in the filesystem. Adjust this as desired.
 
 ## Usage
-The main work is in `calendarView-batch_token-refresh.php`. See inline comments for details, but some high-level points to note:
+The main work uses the refresh token only, and is in `calendarView-batch_token-refresh.php`. See inline comments for details, but some high-level points to mention:
 - I have multiple Outlook calendars, so rather than make separate curl calls for each, Graph supports a single `$batch` operation
 - When defining query parameters, note the syntax difference between regular parameters like `startDateTime` and `endDateTime` versus [OData Query Parameters](https://learn.microsoft.com/en-us/graph/query-parameters?tabs=http) like `$select` and `$top` (with the dollar sign).
 - I pull all the calendars, combine them, sort the events, and output to a single JSON file. I can then use this JSON file in different ways depending on what I'm doing across other personal applications (wiki, family event planner, etc.)
@@ -48,4 +48,6 @@ The Graph CalendarView API is clean, and way better than trying to make sense of
 - multi-day event, all day (e.g. Vacation from 2026-05-10 to 2026-05-17)
   - `type` = singleInstance, `isAllDay` = true, `start/dateTime` = actual dates and 00:00:00 UTC
  
-That last scenario added some extra work.
+That last scenario added some extra work. Example, from above: an event from 2026-05-10 to 2026-05-17, but the API call boundaries are 2026-05-16 to 2026-05-18, overlapping the event. What if the event both starts and ends outside of the API timeframe? What if the event both starts and ends inside of the API timeframe? Fortunately, if the event appears in the response, the API knows it occurs *somewhere* in my timeframe - I just need to figure out when. Ideally when I output all this, my personal preference is to have the event appear on every respective day (e.g. 5/16: Vacation, 5/17: Vacation, 5/18: Vacation).
+
+My first approach was to iterate the sorted events. 
