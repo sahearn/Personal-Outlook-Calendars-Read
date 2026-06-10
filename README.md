@@ -33,6 +33,7 @@ The main work uses the refresh token only, and is in `calendarView-batch_token-r
 - When defining query parameters, note the syntax difference between regular parameters like `startDateTime` and `endDateTime` versus [OData Query Parameters](https://learn.microsoft.com/en-us/graph/query-parameters?tabs=http) like `$select` and `$top` (with the dollar sign).
 - I pull all the calendars, combine them, sort the events, and output to a single JSON file. I can then use this JSON file in different ways depending on what I'm doing across other personal applications (wiki, [family event planner](https://github.com/sahearn/Printable-Weekly-Agenda), etc.)
 - Graph returns all dates and times as UTC, even if I enter events in Outlook as `America/New York`. So I need to switch to local TZ for any date math or output.
+- Sample output in `sample-calendarView-batch.json`
 
 ### Some Notes on Overall Logic
 The Graph CalendarView API is clean, and way better than trying to make sense of an ICS file - with one exception. Here are the scenarios I accounted for:
