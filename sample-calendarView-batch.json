@@ -1,0 +1,50 @@
+{
+    "2026-05-27": [
+        {
+            "calendarId": "E",
+            "title": "Family Vaca",
+            "allDay": true,
+            "time": null
+        }
+    ],
+    "2026-05-29": [
+        {
+            "calendarId": "H",
+            "title": "Cousin Birthday",
+            "allDay": true,
+            "time": null
+        }
+    ],
+    "2026-05-31": [
+        {
+            "calendarId": "E",
+            "title": "Concert",
+            "allDay": false,
+            "time": "16:00:00"
+        }
+    ],
+    "2026-06-02": [
+        {
+            "calendarId": "E",
+            "title": "Flea Treatment for Dog",
+            "allDay": true,
+            "time": null
+        }
+    ],
+    "2026-06-06": [
+        {
+            "calendarId": "E",
+            "title": "Dinner Date",
+            "allDay": true,
+            "time": null
+        }
+    ],
+    "2026-06-20": [
+        {
+            "calendarId": "E",
+            "title": "World Juggling Day",
+            "allDay": true,
+            "time": null
+        }
+    ],
+}
