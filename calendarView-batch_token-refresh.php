@@ -1,5 +1,4 @@
 <?php
-
 // to-do: batch response has status per calendar ($response['status']) - I should check this
 
 // calendar ids
