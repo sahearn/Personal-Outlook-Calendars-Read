@@ -1,5 +1,4 @@
 <?php
-
 $clientId = 'YOUR_CLIENT_ID';
 $tenantId = 'consumers';
 $scope    = 'Calendars.Read offline_access';
